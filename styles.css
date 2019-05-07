@@ -24,13 +24,24 @@ html * {
 .col-12 {width: 100%;}
 
 
-/*-------- Responsive Grid -------- */
-.cat-nav,
-.cat-area {
+/*-------- Cat Nav -------- */
+.cat-nav {
     display: inline-block;
 }
 
 
+.cat-nav .cat-item:hover {
+    cursor: pointer;
+}
+
+
+/*-------- Cat Area -------- */
 .cat-area {
+    display: inline-block;
     float: right;
+}
+
+
+.cat-area .cat-img {
+    cursor: pointer;
 }
