@@ -26,24 +26,11 @@ window.onload = function() {
         init: function() {
             viewList.init();
             viewArea.init();
-            let counter = this._createCounter();
             model.forEach(function (cat) {
-                octopus._defineCatId(cat, counter);
+                cat.id = cat.clickCount;
                 octopus._defineCatSrc(cat);
                 viewList.render(cat);
             })
-        },
-
-        _createCounter: function () {
-            return (function (count) {
-                return function () {
-                    return ++count;
-                }
-            })(0);
-        },
-
-        _defineCatId: function (cat, counter) {
-            cat.id = counter();
         },
 
         _defineCatSrc: function (cat) {
