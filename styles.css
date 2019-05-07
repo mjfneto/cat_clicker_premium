@@ -2,6 +2,7 @@ html {
     font-size: 1.5em;
 }
 
+
 html * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -21,3 +22,15 @@ html * {
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
+
+
+/*-------- Responsive Grid -------- */
+.cat-nav,
+.cat-area {
+    display: inline-block;
+}
+
+
+.cat-area {
+    float: right;
+}
