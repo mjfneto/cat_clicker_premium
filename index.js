@@ -105,12 +105,10 @@ window.onload = function() {
             $counterContainer = this.counterContainer;
             thisTemplate = this.catCounterTemplate;
 
-            $counterContainer.innerHTML = '';
-
             thisTemplate = thisTemplate.replace(/{{src}}/g, currentCat.src);
             thisTemplate = thisTemplate.replace(/{{alt}}|{{name}}/g, currentCat.name);
             let $catCounter = thisTemplate.replace(/{{clickCount}}/g, currentCat.clickCount);
-            $counterContainer.insertAdjacentHTML('beforeend', $catCounter);
+            $counterContainer.innerHTML = $catCounter;
         }
     }
 
