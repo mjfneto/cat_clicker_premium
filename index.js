@@ -92,7 +92,7 @@ window.onload = function() {
     const viewArea = {
         init: function() {
             this.counterContainer = document.querySelector('.counter-container');
-            this.catCounterTemplate = '<img class="cat-img" src="{{src}}" alt="{{alt}}"></img><p class="cat-counter">{{clickCount}}</p>';
+            this.catCounterTemplate = '<p class="cat-name">{{name}}</p><img class="cat-img" src="{{src}}" alt="{{alt}}"></img><p class="cat-counter">{{clickCount}}</p>';
 
             this.counterContainer.addEventListener('click', function(e) {
                 if (e.target && e.target.classList.contains('cat-img')) {
@@ -108,7 +108,7 @@ window.onload = function() {
             $counterContainer.innerHTML = '';
 
             thisTemplate = thisTemplate.replace(/{{src}}/g, currentCat.src);
-            thisTemplate = thisTemplate.replace(/{{alt}}/g, currentCat.name);
+            thisTemplate = thisTemplate.replace(/{{alt}}|{{name}}/g, currentCat.name);
             let $catCounter = thisTemplate.replace(/{{clickCount}}/g, currentCat.clickCount);
             $counterContainer.insertAdjacentHTML('beforeend', $catCounter);
         }
