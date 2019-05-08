@@ -23,25 +23,25 @@ html * {
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
-
-/*-------- Cat Nav -------- */
-.cat-nav {
-    display: inline-block;
+.main-container {
+    height: auto;
+    white-space: nowrap;
 }
 
+.main-container > * {
+    display: inline-block;
+    margin: 0 auto;
+    vertical-align: top;
+}
 
+/*-------- Cat Nav -------- */
 .cat-nav .cat-item:hover {
     cursor: pointer;
 }
 
 
 /*-------- Cat Area -------- */
-.cat-area {
-    display: inline-block;
-    float: right;
-}
-
-
 .cat-area .cat-img {
+    max-width: 100%;
     cursor: pointer;
 }
