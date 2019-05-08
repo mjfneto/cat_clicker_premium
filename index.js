@@ -2,65 +2,60 @@ window.onload = function() {
     const model = [
         {
             name: 'cat1',
-            clickCount: 1
+            src: 'img/cat_picture1.jpeg',
+            clickCount: 0
         },
         {
             name: 'cat2',
-            clickCount: 2
+            src: 'img/cat_picture2.jpeg',
+            clickCount: 0
         },
         {
             name: 'cat3',
-            clickCount: 3
+            src: 'img/cat_picture3.jpeg',
+            clickCount: 0
         },
         {
             name: 'cat4',
-            clickCount: 4
+            src: 'img/cat_picture4.jpeg',
+            clickCount: 0
         },
         {
             name: 'cat5',
-            clickCount: 5
+            src: 'img/cat_picture5.jpeg',
+            clickCount: 0
         },
     ];
 
     const octopus = {
         init: function() {
+
+            model[0].visible = true;
+
             viewList.init();
             viewArea.init();
-            model.forEach(function (cat) {
-                cat.id = cat.clickCount;
-                octopus._defineCatSrc(cat);
-                viewList.render(cat);
+            viewArea.render(model[0]);
+        },
+
+        getCats: function() {
+            return model;
+        },
+
+        getVisibleCat: function() {
+            return model.find(function(cat) {
+                return cat.visible == true;
             })
         },
 
-        _defineCatSrc: function (cat) {
-            cat.src = 'img/cat_picture' + cat.id + '.jpeg';
-        },
-
-        getCurrentCat: function(id) {
-            return model.find(function (cat) {
-                return cat.id == id;
-            });
-        },
-
-        handleCatList: function(id) {
-            this.handlePreviousCat();
-            const currentCat = this.getCurrentCat(id);
+        handleCurrentCat: function(currentCat) {
+            const previousCat = this.getVisibleCat();
+            previousCat.visible = false;
             currentCat.visible = true;
             viewArea.render(currentCat);
         },
 
-        handlePreviousCat: function() {
-            const previousCat = model.find(function (cat) {
-                return cat.visible === true;
-            });
-            if (previousCat) previousCat.visible = false;
-        },
-
-        handleCurrentCat: function() {
-            const currentCat = model.find(function (cat) {
-                return cat.visible === true;
-            });
+        handleClickCount: function() {
+            const currentCat = this.getVisibleCat();
             ++currentCat.clickCount;
             viewArea.render(currentCat);
         }
@@ -70,45 +65,48 @@ window.onload = function() {
     const viewList = {
         init: function() {
             this.catList = document.querySelector('.cat-list');
-            this.catItemTemplate = '<li class="cat-item" id="{{id}}">{{name}}</li>';
 
-            this.catList.addEventListener('click', function (e) {
-                if (e.target && e.target.classList.contains('cat-item')) {
-                    octopus.handleCatList(e.target.id);
-                }
-            })
+            this.render();
         },
 
-        render: function(cat) {
-            $catList = this.catList;
-            thisTemplate = this.catItemTemplate;
+        render: function() {
+            const cats = octopus.getCats();
 
-            thisTemplate = thisTemplate.replace(/{{id}}/g, cat.id);
-            let $catItem = thisTemplate.replace(/{{name}}/g, cat.name);
-            $catList.insertAdjacentHTML('beforeend', $catItem);
+            $catList = this.catList;
+
+            cats.forEach(function (cat) {
+                let $catItem = document.createElement('li');
+                $catItem.classList.add('cat-item');
+                $catItem.innerText = cat.name;
+                $catItem.addEventListener('click', (function(catCopy) {
+                    return function () {
+                        octopus.handleCurrentCat(catCopy);
+                    }
+                })(cat));
+                $catList.insertAdjacentElement('beforeend', $catItem);
+            })
         }
     }
 
     const viewArea = {
         init: function() {
             this.counterContainer = document.querySelector('.counter-container');
-            this.catCounterTemplate = '<p class="cat-name">{{name}}</p><img class="cat-img" src="{{src}}" alt="{{alt}}"></img><p class="cat-counter">{{clickCount}}</p>';
+            this.catName = document.querySelector('.cat-name');
+            this.catImg = document.querySelector('.cat-img');
+            this.catCounter = document.querySelector('.cat-counter');
 
-            this.counterContainer.addEventListener('click', function(e) {
-                if (e.target && e.target.classList.contains('cat-img')) {
-                    octopus.handleCurrentCat();
-                }
+            this.catImg.addEventListener('click', function() {
+                octopus.handleClickCount();
             })
+
+            this.render(octopus.getVisibleCat());
         },
 
-        render: function(currentCat) {
-            $counterContainer = this.counterContainer;
-            thisTemplate = this.catCounterTemplate;
-
-            thisTemplate = thisTemplate.replace(/{{src}}/g, currentCat.src);
-            thisTemplate = thisTemplate.replace(/{{alt}}|{{name}}/g, currentCat.name);
-            let $catCounter = thisTemplate.replace(/{{clickCount}}/g, currentCat.clickCount);
-            $counterContainer.innerHTML = $catCounter;
+        render: function(cat) {
+            this.catName.textContent = cat.name;
+            this.catCounter.textContent = cat.clickCount;
+            this.catImg.src = cat.src;
+            this.catImg.alt = cat.name;
         }
     }
 
