@@ -1,48 +1,51 @@
 window.onload = function() {
-    const model = [
-        {
-            name: 'cat1',
-            src: 'img/cat_picture1.jpeg',
-            clickCount: 0
-        },
-        {
-            name: 'cat2',
-            src: 'img/cat_picture2.jpeg',
-            clickCount: 0
-        },
-        {
-            name: 'cat3',
-            src: 'img/cat_picture3.jpeg',
-            clickCount: 0
-        },
-        {
-            name: 'cat4',
-            src: 'img/cat_picture4.jpeg',
-            clickCount: 0
-        },
-        {
-            name: 'cat5',
-            src: 'img/cat_picture5.jpeg',
-            clickCount: 0
-        },
-    ];
+    const model = {
+        adminMode: false,
+        cats: [
+            {
+                name: 'cat1',
+                src: 'img/cat_picture1.jpeg',
+                clickCount: 0
+            },
+            {
+                name: 'cat2',
+                src: 'img/cat_picture2.jpeg',
+                clickCount: 0
+            },
+            {
+                name: 'cat3',
+                src: 'img/cat_picture3.jpeg',
+                clickCount: 0
+            },
+            {
+                name: 'cat4',
+                src: 'img/cat_picture4.jpeg',
+                clickCount: 0
+            },
+            {
+                name: 'cat5',
+                src: 'img/cat_picture5.jpeg',
+                clickCount: 0
+            },
+        ]
+    };
 
     const octopus = {
         init: function() {
 
-            model[0].visible = true;
+            model.cats[0].visible = true;
 
             viewList.init();
             viewArea.init();
-            viewArea.render(model[0]);
+            viewArea.render(model.cats[0]);
         },
 
         getCats: function() {
-            return model;
+            return model.cats;
         },
 
         getVisibleCat: function() {
-            return model.find(function(cat) {
+            return model.cats.find(function(cat) {
                 return cat.visible == true;
             })
         },
