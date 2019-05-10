@@ -45,3 +45,65 @@ html * {
     max-width: 100%;
     cursor: pointer;
 }
+
+
+/*-------- Admin -------- */
+.adm-area {
+    position:fixed;
+    bottom: 5vh;
+    left: 5vh;
+}
+
+
+.adm-btn {
+    color: #fff9;
+    background-color: #2229;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 18px;
+    width: 70px;
+}
+
+
+.adm-btn:hover {
+    cursor: pointer;
+    color: #fff9;
+    background-color: #f34d48e0;
+    border: none;
+    padding: 5px;
+    font-size: 18px;
+    width: 70px;
+}
+
+
+.adm-form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    background-color: #2229;
+}
+
+
+.adm-form {
+    padding: 10px;
+}
+
+
+.adm-form .adm-label {
+    color: #fff9;
+    display: block;
+}
+
+
+.adm-form .adm-input {
+    margin-bottom: 10px;
+}
+
+
+.adm-form .form-btn-container {
+    display: flex;
+    justify-content: space-around;
+}
