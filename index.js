@@ -1,6 +1,7 @@
 window.onload = function() {
     const model = {
         adminMode: false,
+        currentCat: {},
         cats: [
             {
                 name: 'cat1',
@@ -33,34 +34,27 @@ window.onload = function() {
     const octopus = {
         init: function() {
 
-            model.cats[0].visible = true;
+            model.currentCat = model.cats[0];
 
             viewList.init();
             viewArea.init();
-            viewArea.render(model.cats[0]);
         },
 
-        getCats: function() {
+        getCurrentCat: function() {
+            return model.currentCat;
+        },
+
+        getCats: function () {
             return model.cats;
         },
 
-        getVisibleCat: function() {
-            return model.cats.find(function(cat) {
-                return cat.visible == true;
-            })
-        },
-
-        handleCurrentCat: function(currentCat) {
-            const previousCat = this.getVisibleCat();
-            previousCat.visible = false;
-            currentCat.visible = true;
-            viewArea.render(currentCat);
+        handleCurrentCat: function(cat) {
+            model.currentCat = cat;
         },
 
         handleClickCount: function() {
-            const currentCat = this.getVisibleCat();
-            ++currentCat.clickCount;
-            viewArea.render(currentCat);
+            ++model.currentCat.clickCount;
+            viewArea.render();
         }
 
     }
@@ -84,6 +78,7 @@ window.onload = function() {
                 $catItem.addEventListener('click', (function(catCopy) {
                     return function () {
                         octopus.handleCurrentCat(catCopy);
+                        viewArea.render();
                     }
                 })(cat));
                 $catList.insertAdjacentElement('beforeend', $catItem);
@@ -102,14 +97,15 @@ window.onload = function() {
                 octopus.handleClickCount();
             })
 
-            this.render(octopus.getVisibleCat());
+            this.render();
         },
 
-        render: function(cat) {
-            this.catName.textContent = cat.name;
-            this.catCounter.textContent = cat.clickCount;
-            this.catImg.src = cat.src;
-            this.catImg.alt = cat.name;
+        render: function() {
+            const currentCat = octopus.getCurrentCat();
+            this.catName.textContent = currentCat.name;
+            this.catCounter.textContent = currentCat.clickCount;
+            this.catImg.src = currentCat.src;
+            this.catImg.alt = currentCat.name;
         }
     }
 
